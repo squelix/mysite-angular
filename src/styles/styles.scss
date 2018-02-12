@@ -1,0 +1,78 @@
+@import "variables/breakpoint";
+@import "variables/colors";
+@import "variables/flex";
+@import "variables/margins";
+@import "variables/typography";
+
+@import "mixins/flex";
+@import "mixins/grid";
+@import "mixins/margins";
+@import "mixins/padding";
+@import "mixins/typography";
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body {
+    margin: 0;
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    bottom: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $body-bg;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 100, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 100, italic, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 300, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 300, italic, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 400, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 400, italic, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 500, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 500, italic, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 700, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 700, italic, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 900, normal, ttf);
+@include font-face(Roboto, 'fonts/Roboto/Roboto', 900, italic, ttf);
+
+@include fontSizeHelper($all-font-sizes);
+@include fontSizeHelperRwd($all-font-sizes);
+
+@include marginsHelper($all-margins, $sides);
+@include paddingsHelper($all-paddings, $sides);
+
+@include flexJustifyHelper($all-justify);
+@include flexAlignItemsHelper($all-alignItems);
+@include flexDirectionsHelper($all-flexDirections);
+
+@include grid-base(12px);
+@include grid(12, $suffix: '-xs-');
+@media #{$sm-up} {
+    @include grid(12, $suffix: '-sm-');
+}
+
+@media #{$md-up} {
+    @include grid(12, $suffix: '-md-');
+}
+
+@media #{$lg-up} {
+    @include grid(12, $suffix: '-lg-');
+}
+
+@include columns ($selector: '.flex-col', $properties: ('flex-basis', 'max-width'), $columns: 12, $queries: (xs: $xs, sm: $sm, md: $md, lg: $lg)) {
+    @extend %flex-column;
+}

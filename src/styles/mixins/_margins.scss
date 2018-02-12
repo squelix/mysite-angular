@@ -1,0 +1,11 @@
+@mixin marginsHelper($sizes, $sides) {
+    @each $size in $sizes {
+        @each $side in $sides {
+            .m-#{str-slice($side, 0, 1)}-#{$size} {
+                margin-#{$side}: #{$size}px !important;
+            }
+        }
+    }
+}
+
+

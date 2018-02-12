@@ -1,0 +1,25 @@
+$xs: 480px !default;
+$xs-min: 0 !default;
+
+$sm: 768px !default;
+$sm-min: $sm !default;
+
+$md: 992px !default;
+$md-min: $md !default;
+
+$lg: 1160px !default;
+$lg-min: $lg !default;
+
+$xs-max: ($sm-min - 1) !default;
+$sm-max: ($md-min - 1) !default;
+$md-max: ($lg-min - 1) !default;
+
+$xs-up: 'screen';
+$sm-up: '(min-width: #{$sm-min})' !default;
+$md-up: '(min-width: #{$md-min})' !default;
+$lg-up: '(min-width: #{$lg-min})' !default;
+
+$xs-only: '(max-width: #{$xs-max})' !default;
+$sm-only: '(min-width: #{$sm-min}) and (max-width: #{$sm-max})' !default;
+$md-only: '(min-width: #{$md-min}) and (max-width: #{$md-max})' !default;
+$lg-only: $lg-up !default;

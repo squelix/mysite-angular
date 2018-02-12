@@ -1,0 +1,84 @@
+@import '../variables/breakpoint';
+
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin grid-base($gutter) {
+    .row {
+        @include clearfix;
+        margin-left: -$gutter;
+        margin-right: -$gutter;
+    }
+
+    .row--space-bottom {
+        .col-xs-12,
+        .col:not([class*="col-xs-"]) {
+            margin-bottom: $gutter * 2;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            @media #{$sm-up} {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .col {
+        min-height: 1px;
+        float: left;
+        width: 100%;
+        padding-left: $gutter;
+        padding-right: $gutter;
+    }
+
+    .row--smart-spacing {
+        > .col {
+            padding-bottom: $gutter * 2;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+
+            &[class*="col-xs-"] {
+                padding-bottom: 0;
+            }
+
+            @media #{$sm-up} {
+                &[class*="col-sm-"] {
+                    padding-bottom: 0;
+                }
+            }
+
+            @media #{$md-up} {
+                &[class*="col-md-"] {
+                    padding-bottom: 0;
+                }
+            }
+
+            @media #{$lg-up} {
+                &[class*="col-lg-"] {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@mixin grid($nb-columns: 12, $suffix: "") {
+    @for $i from 1 through $nb-columns {
+        .col#{$suffix + $i} {
+            width: 100% * ($i / $nb-columns);
+        }
+    }
+}

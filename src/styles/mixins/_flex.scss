@@ -1,0 +1,93 @@
+@import '../variables/flex';
+
+@mixin flexJustifyHelper($justifys: $all-justify) {
+    @each $justify in $justifys {
+        .flex--justify-#{$justify} {
+            justify-content: #{$justify};
+        }
+    }
+}
+
+@mixin flexAlignItemsHelper($alignsItems: $all-alignItems) {
+    @each $alignItems in $alignsItems {
+        .flex--align-#{$alignItems} {
+            align-items: #{$alignItems};
+        }
+    }
+}
+
+@mixin flexDirectionsHelper($flexDirections: $all-flexDirections) {
+    @each $flexDirection in $flexDirections {
+        .flex--direction-#{$flexDirection} {
+            flex-direction: #{$flexDirection};
+        }
+    }
+}
+
+@mixin autoWidth() {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+}
+
+@mixin percentWidth($property, $columns, $count) {
+    #{$property}: ((100% / $columns) * $count);
+}
+
+@mixin queries($key, $queries) {
+    $query: map-get($queries, $key);
+    @if ($query == $default-query) {
+        @content;
+    } @else {
+        @media screen and (min-width: $query) {
+            @content;
+        }
+    }
+}
+
+@mixin columns($selector: $column-selector, $properties: $column-properties, $columns: $column-count, $queries: $queries) {
+    @for $i from 0 through $columns {
+        @each $name, $size in $queries {
+            @if ($i == 0) {
+                #{$selector + $block-delimiter + $name} {
+                    @content;
+                }
+            } @else {
+                #{$selector + $block-delimiter + $name + $modifier-delimiter + $i} {
+                    @content;
+                }
+            }
+        }
+    }
+
+    @each $name, $size in $queries {
+        @include queries($name, $queries) {
+            @for $i from 0 through $columns {
+                @if ($i == 0) {
+                    #{$selector + $block-delimiter + $name} {
+                        @include autoWidth();
+                    }
+                } @else {
+                    #{$selector + $block-delimiter + $name + $modifier-delimiter + $i} {
+                        @each $prop in $properties {
+                            @include percentWidth($prop, $columns, $i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin column() {
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-right: $half-gutter-width;
+    padding-left: $half-gutter-width;
+}
+
+
+%flex-column {
+    @include column;
+}
